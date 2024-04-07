@@ -37,7 +37,7 @@ class Grafo:                       #classe que vai juntar as duas classes (vért
 
   #cadastrando os adjacentes de cada cidade (nó)
   arad.adiciona_adjacente(Adjacente(zerind, 75))   #cria-se um novo objeto com o vértice ao qual ele está ligado
-  arad.adiciona_adjacente(Adjacente(sibiu, 140))
+  arad.adiciona_adjacente(Adjacente(sibiu, 999))
   arad.adiciona_adjacente(Adjacente(timisoara, 118))
 
   zerind.adiciona_adjacente(Adjacente(arad, 75))
