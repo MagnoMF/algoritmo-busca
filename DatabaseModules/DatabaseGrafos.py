@@ -111,6 +111,10 @@ class DatabaseGrafos:
             return
         no_autal = self.buscar_no(no_origem)
         adj_no_atual = self.buscar_adjacentes(no_autal[0][0])
+        if(len(adj_no_atual) == 0):
+            print("Nenhum no adjacentes para: {}".format(no_origem))
+            print("Rota sem saida")
+            return
         vetor = VetorOrdenado(len(adj_no_atual))
         for adj in adj_no_atual:
             no = self.buscar_no(adj[1])
@@ -123,3 +127,8 @@ class DatabaseGrafos:
 
     def imprimir_rota(self):
         print("Rota: {}".format(" --> ".join(self.rota)))
+    
+    def imprimir_nos(self):
+        sql = "SELECT ds_no FROM grafos;"
+        self.execute(sql)
+        return self.cur.fetchall()
