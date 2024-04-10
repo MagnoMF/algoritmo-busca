@@ -77,6 +77,9 @@ class DatabaseGrafos:
             sql = "INSERT INTO grafos (ds_no, nr_peso) VALUES ('{}',{});".format(no[0].upper(), no[1])
             self.execute(sql)
     
+    def close_con(self):
+        self.cur.close()
+
     def init(self):
         if(not(self.database_exists() or self.database_exemple)):
             raise ValueError("Database inexistente, defina database_exemple como True para criar um exemplo")
@@ -100,12 +103,12 @@ class DatabaseGrafos:
             self.adicionar_vertices("pitesti", ["rimnicu", "craiova", "bucharest"])
             self.adicionar_vertices("bucharest", ["fagaras", "pitesti", "giurgiu"])
     
-    def buscar_gulosa(self, no_origem, no_destino):
+    def busca_gulosa(self, no_origem, no_destino, f_log):
+        rota = "De: {} --> {}".format(no_origem, no_destino)
+        f_log(rota)
         no_origem = no_origem.upper()
         no_destino = no_destino.upper()
         self.rota.append(no_origem)
-        print("De: {} --> {}".format(no_origem, no_destino))
-        time.sleep(1)
         if (no_origem == no_destino):
             print("Busca finalizada")
             return
@@ -122,7 +125,7 @@ class DatabaseGrafos:
         print("Vertices de: {} {}".format(no_origem, "-"*3) )
         vetor.imprime()
         no_atual = vetor.get_first()
-        self.buscar_gulosa(no_atual[1], no_destino)
+        self.busca_gulosa(no_atual[1], no_destino, f_log)
 
 
     def imprimir_rota(self):
