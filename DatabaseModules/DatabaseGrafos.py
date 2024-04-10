@@ -32,9 +32,12 @@ class DatabaseGrafos:
 
     def connect_db(self):
         try:
+            print(self.database_path)
             self.database = sqlite3.connect(self.database_path)
             self.cur = self.database.cursor()
         except Exception as e:
+            if(self.database_exemple):
+                raise ValueError("Erro ao criar database, tente executar o programa como administrador")
             raise ValueError("Erro ao conectar com o database", e)
 
     def buscar_no(self,no):
@@ -116,6 +119,7 @@ class DatabaseGrafos:
         adj_no_atual = self.buscar_adjacentes(no_autal[0][0])
         if(len(adj_no_atual) == 0):
             print("Nenhum no adjacentes para: {}".format(no_origem))
+            f_log("Rota sem saida")
             print("Rota sem saida")
             return
         vetor = VetorOrdenado(len(adj_no_atual))
